@@ -3,8 +3,6 @@ import React from "react";
 const Header = (props) => {
     const { euroRates, usdRates } = props;
 
-    console.log("usd", usdRates);
-
     return (
         <>
             <div

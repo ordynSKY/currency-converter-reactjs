@@ -5,7 +5,7 @@ import axios from "axios";
 import Header from "./Header";
 
 function App() {
-    const [firstAmount, setFirstAmount] = useState(1);
+    const [amount1, setAmount1] = useState(1);
     const [amount2, setAmount2] = useState(1);
     const [currency1, setCurrency1] = useState("USD");
     const [currency2, setCurrency2] = useState("UAH");
@@ -22,8 +22,6 @@ function App() {
             })
             .then((response) => {
                 setRates(response.data.rates);
-                console.log("data", response.data);
-                console.log("data", rates);
             })
             .catch((err) => console.log("error", err));
 
@@ -38,7 +36,6 @@ function App() {
             )
             .then((response) => {
                 setEuroRates(response.data.result);
-                console.log("EURO: ", response.data);
             })
             .catch((err) => console.log("error", err));
 
@@ -53,7 +50,6 @@ function App() {
             )
             .then((response) => {
                 setUsdRates(response.data.result);
-                console.log("USD: ", response.data);
             })
             .catch((err) => console.log("error", err));
     }, []);
@@ -61,7 +57,7 @@ function App() {
     useEffect(() => {
         if (!!rates) {
             function init() {
-                handleFirstAmountChange(1);
+                handleAmount1Change(1);
             }
             init();
         }
@@ -71,31 +67,23 @@ function App() {
         return number.toFixed(4);
     }
 
-    function handleFirstAmountChange(firstAmount) {
-        setAmount2(
-            roundUp((firstAmount * rates[currency2]) / rates[currency1])
-        );
-        setFirstAmount(firstAmount);
+    function handleAmount1Change(amount1) {
+        setAmount2(roundUp((amount1 * rates[currency2]) / rates[currency1]));
+        setAmount1(amount1);
     }
 
     function handleCurrency1Change(currency1) {
-        setAmount2(
-            roundUp((firstAmount * rates[currency2]) / rates[currency1])
-        );
+        setAmount2(roundUp((amount1 * rates[currency2]) / rates[currency1]));
         setCurrency1(currency1);
     }
 
     function handleAmount2Change(amount2) {
-        setFirstAmount(
-            roundUp((amount2 * rates[currency1]) / rates[currency2])
-        );
+        setAmount1(roundUp((amount2 * rates[currency1]) / rates[currency2]));
         setAmount2(amount2);
     }
 
     function handleCurrency2Change(currency2) {
-        setFirstAmount(
-            roundUp((amount2 * rates[currency1]) / rates[currency2])
-        );
+        setAmount1(roundUp((amount2 * rates[currency1]) / rates[currency2]));
         setCurrency2(currency2);
     }
 
@@ -106,10 +94,10 @@ function App() {
                 <div className="input-div">
                     <h1 className="currency-converter">Currency Converter</h1>
                     <CurrencyInput
-                        onAmountChange={handleFirstAmountChange}
+                        onAmountChange={handleAmount1Change}
                         onCurrencyChange={handleCurrency1Change}
                         currencies={Object.keys(rates)}
-                        amount={firstAmount}
+                        amount={amount1}
                         currency={currency1}
                     />
                     <CurrencyInput
