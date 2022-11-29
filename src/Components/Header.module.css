@@ -1,0 +1,10 @@
+.wrapper {
+  height: 100px;
+  background-color: rgb(146, 0, 26);
+  color: white;
+}
+.rates {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}

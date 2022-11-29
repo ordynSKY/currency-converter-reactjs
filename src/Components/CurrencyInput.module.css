@@ -1,0 +1,9 @@
+.currencyInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 19px;
+  padding: 10px;
+  background: white;
+  letter-spacing: 1px;
+}
